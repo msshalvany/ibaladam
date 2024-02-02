@@ -28,7 +28,7 @@
 
 <body onload="loaded()">
     <span class="base-btn count-user"> تعداد اعضای اتاق :{{ $door->count }} <i class="fa fa-user"></i></span>
-    <div style="display: none;" class="user" id="{{ $user->id }}"></div>
+    <div style="display: none;" class="user" id="{{ session()->get('user') }}"></div>
     <div class="mask"></div>
     <div class="door_id" id="{{ $door->user_id }}"></div>
     <a href="/" class="back-home-door base-btn"><i class="fa fa-home"></i> صفحه اصلی </a>

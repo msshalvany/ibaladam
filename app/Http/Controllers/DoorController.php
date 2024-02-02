@@ -169,6 +169,9 @@ class DoorController extends Controller
     function rejecDoor($id, $user_id, Request $request)
     {
         $door = door::find($id);
+        if (!$door) {
+            return redirect('/dashbord');
+        }
         $user = User::find($user_id);
         if ($door->img) {
             File::delete($door->img);
@@ -178,7 +181,7 @@ class DoorController extends Controller
         $door->delete();
         $user->update([
             "status_door" => 'reject',
-            "rejectDoorMesseg" => $request->mesege
+            "rejectDoorMesseg" => $request->mesege ? $request->mesege : '-'
         ]);
         return redirect('/dashbord');
     }

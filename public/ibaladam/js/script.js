@@ -254,7 +254,7 @@ $(document).ready(function () {
 
     $("#username").keyup(function (e) {
         let name = $("#username").val();
-        if (!/^[a-zآ-یA-Z\s]*$/.test(name)) {
+        if (!/^[a-zآ-یA-Z\s1-9]*$/.test(name)) {
             $("#username").css({borderColor: "red"});
             $("#regester").prop("disabled", true);
             $("#regester").css({opacity: "50%"});
@@ -570,7 +570,7 @@ function getDoors(countDoor, categoryDoor, city, price, search) {
 var viweDoor = (e, id) => {
     var doorHav = null;
     if ($(".user").attr("id") == 0) {
-        alertEore("ابتدا باید ثبت نام کنید");
+        alertEore("لطفا شماره همراه خود را جهت ثبت نام وارد کنید(در این سایت همه چی رایگان است)");
         regesterForm()
     } else if ($(".mines-score-door").attr("id") == 0) {
         alertEore("شما امتیاز کافی را ندارید هر کسی از طرف شما ثبت نام کند و شماره معرف را شماره همراه شما بزند ، به ازای هر معرف 100 امتیاز می گیرید");

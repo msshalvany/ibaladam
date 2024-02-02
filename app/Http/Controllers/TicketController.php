@@ -92,7 +92,7 @@ class TicketController extends Controller
         $messege->Verify(
             $user->phon,
             'ibaladamReadyUser',
-            $user->username,
+            $user->phon,
         );
     }
 }

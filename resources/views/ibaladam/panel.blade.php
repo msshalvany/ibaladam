@@ -152,7 +152,8 @@
                             <p><b>شهر:</b>{{ $door->city }} </p>
                             <span>بستن چت کاربران
                                 <label class="container-ch" style="display: inline;top: 2px;right: 6px;">
-                                    <input class="block-messege-btn" type="checkbox" @if ($door->messegeBlock=='true') checked @endif>
+                                    <input class="block-messege-btn" type="checkbox"
+                                        @if ($door->messegeBlock == 'true') checked @endif>
                                     <span class="checkmark"></span>
                                 </label>
                             </span>
@@ -230,7 +231,30 @@
     </div>
 @endsection
 @section('script')
-
+    @if ($door!=null && $door->status == 'accept')
+        <script>
+            $('.block-messege-btn').click(function(e) {
+                $.ajax({
+                    type: "post",
+                    url: "/user/blockMessege",
+                    data: {
+                        id: {{ $door->id }},
+                        val: $('.block-messege-btn').prop('checked')
+                    },
+                    success: function(response) {
+                        if (response == 1) {
+                            alertSucsses('عملیات موفق')
+                        }
+                    }
+                });
+            });
+        </script>
+    @endif
+    <script>
+        $('.door-form').submit(function(e) {
+            $('.loead-wait-cin').css('display', 'flex');
+        });
+    </script>
     <script>
         $('.enable-pass').click(function(e) {
             var status = $('.enable-pass').prop('checked');

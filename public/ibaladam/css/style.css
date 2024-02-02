@@ -44,7 +44,7 @@
     position: fixed;
     z-index: 4;
     padding: 16px;
-    top: 50%;
+    top: 30%;
     left: 50%;
     margin-top: -600px;
     margin-left: -200px;
@@ -1522,7 +1522,7 @@ footer div {
     height: fit-content;
     word-break: break-all;
 }
-.messags-container p .message-user p{
+.messags-container p , .message-user p{
     white-space: break-spaces;
 }
 
