@@ -108,6 +108,7 @@ class DoorController extends Controller
             'img' => $img,
             'subgrops' => $request->subgrops,
             'password' => $request->password,
+            'password_status'=> $request->password? 1 :0 ,
             'price' => $request->price?$request->price:0,
         ]);
         $user = User::find($request->user_id);

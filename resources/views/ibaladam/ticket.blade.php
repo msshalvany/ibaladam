@@ -69,42 +69,38 @@
     color: white;
     }
     .ticket-link{
-        display: none;
+    display: none;
     }
 @endsection
 
 
 @section('section')
+<div style="position: fixed;margin-left: -60px;left: 50%;top:40%;display: none" class="loader"></div>
     <div class="chat-container">
         <div class="chat-header">
             <h3>ارسال تیکت</h3>
         </div>
         <div class="chat-body">
-            @foreach($messege as $item)
+            @foreach ($messege as $item)
                 <div class="message">
 
-                    <div class="content @if($item->admin==1)user-message @endif">
-                        <div class="sender">@if($item->admin==1)
+                    <div class="content @if ($item->admin == 1) user-message @endif">
+                        <div class="sender">
+                            @if ($item->admin == 1)
                                 ادمین آی بلدم :
                             @else
                                 شما
                             @endif
                         </div>
-                        @if($item->img)
-                            <img style="max-width: 300px" src="/{{$item->img}}" alt="s">
+                        @if ($item->img)
+                            <img style="max-width: 300px" src="/{{ $item->img }}" alt="s">
                         @endif
-                        <p>{{$item->text}}</p>
+                        <p>{{ $item->text }}</p>
                     </div>
                 </div>
             @endforeach
-
-            {{--            <div class="message">--}}
-            {{--                <div class="sender">Jane 111</div>--}}
-            {{--                <div class="content ">بله، متشکرم! شما چطور؟</div>--}}
-            {{--            </div>--}}
-            {{--            <!-- اضافه کردن پیام‌های بیشتر -->--}}
         </div>
-        <form class="form-ticket" action="{{route('ticketStor')}}" method="post" enctype="multipart/form-data">
+        <form class="form-ticket" action="{{ route('ticketStor') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="chat-footer">
                 <label class="mb-2" for="text">متن را تایپ کنید : </label>
@@ -123,23 +119,26 @@
 @endsection
 @section('script')
     <script>
-        $('.form-ticket').submit(function (e) {
+        $('.form-ticket').submit(function(e) {
             var fileInput = $('.custom-file-upload input')[0];
             if (fileInput.files.length > 0) {
                 $('.stop-ajsx').fadeOut(0)
                 $('.loead-wait-cin').css('display', 'flex');
+
+            } else {
+                $('.mask-all').fadeIn();
+                $('.loader').fadeIn();
             }
         });
     </script>
     @error('text')
-    <script>
-        alertEore('اطلاعات صحیح نمی باشد')
-    </script>
+        <script>
+            alertEore('اطلاعات صحیح نمی باشد')
+        </script>
     @enderror
     @error('img')
-    <script>
-        alertEore('فایل حتما باید عکس باشد و حداکثر 100 مگابایت')
-    </script>
+        <script>
+            alertEore('فایل حتما باید عکس باشد و حداکثر 100 مگابایت')
+        </script>
     @enderror
 @endsection
-

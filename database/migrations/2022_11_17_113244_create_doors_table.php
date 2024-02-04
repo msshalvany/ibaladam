@@ -28,6 +28,7 @@ class CreateDoorsTable extends Migration
             $table->bigInteger('price')->default(0);
             $table->bigInteger('sort')->default(1);
             $table->bigInteger('password')->default(null);
+            $table->bigInteger('password_status')->default(0);
             $table->boolean('messegeBlock')->default(0);
 
             $table->timestamps();

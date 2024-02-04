@@ -25,7 +25,7 @@
                                         {{ $item2 }}-
                                     @endforeach
                                 </td>
-                                <form action="{{ route('grop.destroy', ['grop' => $item->id]) }}" method="POST">
+                                <form class="delete-grop" action="{{ route('grop.destroy', ['grop' => $item->id]) }}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <td><button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button></td>
@@ -562,5 +562,28 @@
             $('#attrbute').val(JSON.stringify(subs));
             event.target.parentNode.remove()
         }
+        $('.delete-grop').submit(function(e) {
+            e.preventDefault();
+            var form = $(this); // دسترسی به فرم مربوطه
+
+            $('.conf-cont').animate({
+                'margin-top': '-80px',
+                'top': '50%'
+            });
+
+            $('.conf-cont-n').click(function() {
+                $('.conf-cont').animate({
+                    'top': '-150%'
+                });
+            });
+
+            $('.conf-cont-y').click(function() {
+                $('.conf-cont').animate({
+                    'top': '-150%'
+                });
+                console.log(form);
+                form.unbind('submit').submit(); // ارسال فرم
+            });
+        });
     </script>
 @endsection

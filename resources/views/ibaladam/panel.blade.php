@@ -106,12 +106,12 @@
                                 </div><br>
                             @endif
                             {{-- @if ($user->all_city == 1)
-                                <div>نمایش در تمام شهر ها <input name="all_city" style="vertical-align: -2px" type="checkbox"></div>
+                                <div>نمایش در تمام شهر ها <input name="all_city" style  ="vertical-align: -2px" type="checkbox"></div>
                             @else
                                 <div>نمایش اتاق در تمام شهر ها <span style="color: red;font-weight: bold">25 هزار توان </span><a
                                         href="{{ route('pay_city') }}" style="margin: 0 5px 0 0" class="base-btn">پرداخت</a></div>
                             @endif --}}
-                            <span for="price">ساخت اتاق خصوصی (دارای رمز عبور) :
+                            {{-- <span for="price">ساخت اتاق خصوصی (دارای رمز عبور) :
                                 <label class="container-ch" style="display: inline;top: -9px;right: 6px;">
                                     <input class="enable-pass" type="checkbox">
                                     <span class="checkmark"></span>
@@ -120,7 +120,7 @@
                             <div class="password-container" style="display: none">
                                 <label for="">رمز عبور اتاق : </label>
                                 <input type="password" name="password" id="passwoerd-door">
-                            </div>
+                            </div> --}}
                             <script></script>
                             <label class="custom-file-upload">
                                 <input type="file" name="img">
@@ -165,23 +165,6 @@
                                 <button class="cancel-request btn btn-danger">انصراف از اتاق</button>
                             </form>
                         </div>
-                        <script>
-                            $('.block-messege-btn').click(function(e) {
-                                $.ajax({
-                                    type: "post",
-                                    url: "/user/blockMessege",
-                                    data: {
-                                        id: {{ $door->id }},
-                                        val: $('.block-messege-btn').prop('checked')
-                                    },
-                                    success: function(response) {
-                                        if (response == 1) {
-                                            alertSucsses('عملیات موفق')
-                                        }
-                                    }
-                                });
-                            });
-                        </script>
                     @break
 
                     @case('reject')
@@ -231,9 +214,11 @@
     </div>
 @endsection
 @section('script')
-    @if ($door!=null && $door->status == 'accept')
+    @if ($door != null && $door->status == 'accept')
         <script>
             $('.block-messege-btn').click(function(e) {
+                $('.mask-all').fadeIn();
+                $('.loader').fadeIn()
                 $.ajax({
                     type: "post",
                     url: "/user/blockMessege",
@@ -245,7 +230,10 @@
                         if (response == 1) {
                             alertSucsses('عملیات موفق')
                         }
+                        $('.mask-all').fadeOut();
+                        $('.loader').fadeOut()
                     }
+
                 });
             });
         </script>
@@ -317,12 +305,13 @@
 
         function otherCity() {
             $('.conf-cont').animate({
-                'top': '110%'
+                'margin-top': '-80px',
+                'top': '50%'
             });
 
             $('.conf-cont-n').click(function(e) {
                 $('.conf-cont').animate({
-                    'top': '50%'
+                    'top': '-150%'
                 });
             });
 
@@ -332,7 +321,8 @@
                 }
 
                 isRequestRunning = true; // تنظیم پرچم برای نشان دادن اجرای درخواست
-
+                $('.mask-all').fadeIn();
+                $('.loader').fadeIn()
                 $.ajax({
                     type: "post",
                     url: 'panel/otherCity',
@@ -350,6 +340,8 @@
                                 location.href = '/panel'
                             }, 2000);
                         }
+                        $('.mask-all').fadeOut();
+                        $('.loader').fadeOut()
                     },
                     complete: function() {
                         isRequestRunning = false; // تنظیم پرچم برای اتمام اجرای درخواست

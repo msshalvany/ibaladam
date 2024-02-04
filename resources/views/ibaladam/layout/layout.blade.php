@@ -22,6 +22,8 @@
     <!-- ===============header========= -->
     <a href="{{route('ticket')}}" class="ticket-link"><i class="fa fa-message"><p>تیکت</p></i><p></p></a>
     <div class="mask"></div>
+    <div class="loader"></div>
+    <div class="mask-all"></div>
     <div class="conf-cont">
         <p>آیا از انجام این عملیات مطمئن هستید</p>
         <div>
@@ -283,5 +285,4 @@
 {{-- ======================panel==================== --}}
 {{-- ======================panel==================== --}}
 {{-- ======================panel==================== --}}
-
 @yield('script')

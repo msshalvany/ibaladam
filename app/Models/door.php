@@ -23,6 +23,10 @@ class door extends Model
         'sort',
         'count',
         'password',
+        'password_status',
         'messegeBlock'
+    ];
+    protected $hidden = [
+        'password',
     ];
 }

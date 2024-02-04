@@ -1,4 +1,4 @@
-function alertSucsses(text,time=3500) {
+function alertSucsses(text, time = 3500) {
     if ($(".alert-erore").length || $(".alert-sucsses").length) {
         if ($(".alert-sucsses").length) {
             $(".alert-sucsses").animate({ top: -140 }, 600);
@@ -15,18 +15,17 @@ function alertSucsses(text,time=3500) {
     $("body").append(`
             <div class="alert-sucsses">${text}</div>
         `);
-    $(".alert-sucsses").animate({top: 8,}, 600, function () {
-            setTimeout(() => {
-                $(".alert-sucsses").animate({ top: -140 }, 600);
-            }, time);
-        }
-    );
+    $(".alert-sucsses").animate({ top: 8 }, 600, function () {
+        setTimeout(() => {
+            $(".alert-sucsses").animate({ top: -140 }, 600);
+        }, time);
+    });
     setTimeout(() => {
         $(".alert-sucsses").remove();
-    }, time+2000);
+    }, time + 2000);
 }
 
-function alertEore(text,time=3500) {
+function alertEore(text, time = 3500) {
     if ($(".alert-sucsses").length || $(".alert-erore").length) {
         if ($(".alert-sucsses").length) {
             $(".alert-sucsses").animate({ top: -140 }, 600);
@@ -56,7 +55,7 @@ function alertEore(text,time=3500) {
     );
     setTimeout(() => {
         $(".alert-erore").remove();
-    }, time+2000);
+    }, time + 2000);
 }
 
 var x, i, j, l, ll, selElmnt, a, b, c;
@@ -199,22 +198,21 @@ var popInfo = (text) => {
     });
 };
 $(".conf-form").submit(function (e) {
-    e.preventDefault()
+    e.preventDefault();
     $(".conf-cont").animate({
-        top: "110%",
+        "margin-top": "-80px",
+        'top': "50%",
     });
-
     $(".conf-cont-n").click(function () {
         $(".conf-cont").animate({
-            top: "40%",
+            'top': "-150%",
         });
     });
-
     $(".conf-cont-y").click(function () {
         if (isRequestRunning) {
             return; // در صورتی که درخواست در حال اجرا باشد، اجرای مجدد را متوقف کنید
         }
-        e.target.submit()
+        e.target.submit();
         isRequestRunning = true; // تنظیم پرچم برای نشان دادن اجرای درخواست
     });
 });
@@ -224,7 +222,7 @@ function loginFotm() {
     var h = innerHeight;
     if (w >= 450) {
         $(".mask").fadeIn();
-        $(".login-form").css({left: (w - 310) / 2});
+        $(".login-form").css({ left: (w - 310) / 2 });
         $(".login-form")
             .fadeIn()
             .animate({
@@ -247,7 +245,7 @@ function regesterForm() {
     var h = innerHeight;
     if (w >= 550) {
         $(".mask").fadeIn();
-        $(".regester-form").css({left: (w - 300) / 2});
+        $(".regester-form").css({ left: (w - 300) / 2 });
         $(".regester-form")
             .fadeIn()
             .animate({

@@ -125,7 +125,8 @@ class ViewControoler extends Controller
         $ticket = Ticket::where('user_id', $user->id)->first();
         if (!Ticket::where('user_id', $user->id)->first()) {
             Ticket::create([
-                'user_id' => $user->id
+                'user_id' => $user->id,
+                'sort'=>Ticket::max('id') + 1
             ]);
         }
         $ticket = Ticket::where('user_id', $user->id)->first();

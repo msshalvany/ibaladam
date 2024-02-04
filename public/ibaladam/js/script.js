@@ -25,33 +25,32 @@ $(document).ready(function () {
 
     // ligin
 
-
     $(".login-butten").click(function () {
         loginFotm();
     });
     $(".mask , .cancelLogin ,.mines-score-door .cancel").click(function (e) {
         e.preventDefault();
-        $(".login-form").animate({top: -300});
+        $(".login-form").animate({ top: -300 });
         $(".mines-score-door").fadeOut();
         $(".mask").fadeOut();
-        $('.save-cont').fadeOut()
+        $(".save-cont").fadeOut();
     });
 
     $("#phonLogin").keyup(function (e) {
         let phon = $("#phonLogin").val();
         if (!/^[0-9]*$/.test(phon) || phon.length < 11) {
-            $("#phonLogin").css({borderColor: "red"});
+            $("#phonLogin").css({ borderColor: "red" });
         } else {
-            $("#phonLogin").css({borderColor: "green"});
+            $("#phonLogin").css({ borderColor: "green" });
         }
     });
 
     $("#passwordLogin").keyup(function (e) {
         let password = $("#passwordLogin").val();
         if (password.length < 4) {
-            $("#passwordLogin").css({borderColor: "red"});
+            $("#passwordLogin").css({ borderColor: "red" });
         } else {
-            $("#passwordLogin").css({borderColor: "green"});
+            $("#passwordLogin").css({ borderColor: "green" });
         }
     });
     $("#passwordLogin  , #passwordLogin").keyup(function (e) {
@@ -59,14 +58,16 @@ $(document).ready(function () {
         let password = $("#passwordLogin").val();
         if (!/^[0-9]*$/.test(phon) || phon.length < 11 || password.length < 4) {
             $("#sendLogin").prop("disabled", true);
-            $("#sendLogin").css({opacity: "50%"});
+            $("#sendLogin").css({ opacity: "50%" });
         } else {
             $("#sendLogin").prop("disabled", false);
-            $("#sendLogin").css({opacity: "100%"});
+            $("#sendLogin").css({ opacity: "100%" });
         }
     });
     $(".loginForm").on("submit", function (e) {
         e.preventDefault();
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         $.ajax({
             type: "post",
             url: "/user/loginUser",
@@ -86,11 +87,15 @@ $(document).ready(function () {
                     }, 2500);
                 } else {
                     alertEore("شماره یا رمز عبور صحبح نمی باشد");
+                    $(".mask-all").fadeOut();
+                    $(".loader").fadeOut();
                 }
             },
         });
     });
     $(".logout").click(function (e) {
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         $.ajax({
             type: "post",
             url: "/user/logOutUser",
@@ -106,6 +111,8 @@ $(document).ready(function () {
     $(".inpute-number-form").on("submit", function (e) {
         e.preventDefault();
         var formData = new FormData(this);
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         $.ajax({
             type: "post",
             processData: false,
@@ -122,7 +129,7 @@ $(document).ready(function () {
                     $(".regester-secend").fadeIn();
                     if (w >= 550) {
                         $(".mask").fadeIn();
-                        $(".regester-form").css({left: (w - 300) / 2});
+                        $(".regester-form").css({ left: (w - 300) / 2 });
                         $(".regester-form")
                             .fadeIn()
                             .animate({
@@ -140,7 +147,7 @@ $(document).ready(function () {
                     alertEore("شما قبلا ثبت نام کرده اید");
                     setTimeout(() => {
                         e.preventDefault();
-                        $(".regester-form").animate({top: -600});
+                        $(".regester-form").animate({ top: -600 });
                         $(".mask").fadeOut();
                         $(".regester-secend").fadeOut();
                         setTimeout(() => {
@@ -154,7 +161,7 @@ $(document).ready(function () {
                         var h = innerHeight;
                         if (w >= 450) {
                             $(".mask").fadeIn();
-                            $(".login-form").css({left: (w - 310) / 2});
+                            $(".login-form").css({ left: (w - 310) / 2 });
                             $(".login-form")
                                 .fadeIn()
                                 .animate({
@@ -173,29 +180,32 @@ $(document).ready(function () {
                         }
                     }, 1000);
                 }
+                $(".mask-all").fadeOut();
+                $(".loader").fadeOut();
             },
         });
     });
-
 
     $(".regester-butten").click(function () {
         regesterForm();
     });
     $(".mask , .cancelRegester").click(function (e) {
         e.preventDefault();
-        $(".regester-form").animate({top: -600});
+        $(".regester-form").animate({ top: -600 });
         $(".mask").fadeOut();
         $(".regester-secend").fadeOut();
         setTimeout(() => {
             $(".regester-first").fadeIn();
         }, 500);
         setTimeout(() => {
-            $(".regester-form").css({width: "300px", height: "150px"});
+            $(".regester-form").css({ width: "300px", height: "150px" });
         }, 500);
     });
     $(".regester-first").on("submit", function (e) {
         e.preventDefault();
         var formData = new FormData(this);
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         $.ajax({
             type: "post",
             processData: false,
@@ -216,21 +226,25 @@ $(document).ready(function () {
                     alertEore("شما قبلا ثبت نام کرده اید");
                     setTimeout(() => {
                         e.preventDefault();
-                        $(".regester-form").animate({top: -600});
+                        $(".regester-form").animate({ top: -600 });
                         $(".mask").fadeOut();
                         $(".regester-secend").fadeOut();
                         loginFotm();
                     }, 1000);
                 }
+                $(".mask-all").fadeOut();
+                $(".loader").fadeOut();
             },
         });
     });
     $("#codeVerifySend").click(function (e) {
         e.preventDefault();
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         $.ajax({
             type: "post",
             url: "/user/AuthStore",
-            data: {code: $("#codeVerify").val()},
+            data: { code: $("#codeVerify").val() },
             success: function (response) {
                 if (response == 0) {
                     alertEore("کد وارد شده اشتباه است");
@@ -248,6 +262,8 @@ $(document).ready(function () {
                         });
                     }, 500);
                 }
+                $(".mask-all").fadeOut();
+                $(".loader").fadeOut();
             },
         });
     });
@@ -255,29 +271,29 @@ $(document).ready(function () {
     $("#username").keyup(function (e) {
         let name = $("#username").val();
         if (!/^[a-zآ-یA-Z\s1-9]*$/.test(name)) {
-            $("#username").css({borderColor: "red"});
+            $("#username").css({ borderColor: "red" });
             $("#regester").prop("disabled", true);
-            $("#regester").css({opacity: "50%"});
+            $("#regester").css({ opacity: "50%" });
         } else {
-            $("#username").css({borderColor: "green"});
+            $("#username").css({ borderColor: "green" });
         }
     });
     $("#phon").keyup(function (e) {
         let phon = $("#phon").val();
         if (!/^[0-9]*$/.test(phon) || phon.length < 11) {
-            $("#phon").css({borderColor: "red"});
+            $("#phon").css({ borderColor: "red" });
         } else {
-            $("#phon").css({borderColor: "green"});
+            $("#phon").css({ borderColor: "green" });
         }
     });
     $("#password").keyup(function (e) {
         let password = $("#password").val();
         if (password.length < 4) {
-            $("#password").css({borderColor: "red"});
+            $("#password").css({ borderColor: "red" });
             $("#regester").prop("disabled", true);
-            $("#regester").css({opacity: "50%"});
+            $("#regester").css({ opacity: "50%" });
         } else {
-            $("#password").css({borderColor: "green"});
+            $("#password").css({ borderColor: "green" });
         }
     });
     $("#repassword").keyup(function (e) {
@@ -286,33 +302,33 @@ $(document).ready(function () {
             repassword.length < 4 ||
             $("#password").val() != $("#repassword").val()
         ) {
-            $("#repassword").css({borderColor: "red"});
-            $("#password").css({borderColor: "red"});
+            $("#repassword").css({ borderColor: "red" });
+            $("#password").css({ borderColor: "red" });
             $("#regester").prop("disabled", true);
-            $("#regester").css({opacity: "50%"});
+            $("#regester").css({ opacity: "50%" });
         } else {
-            $("#repassword").css({borderColor: "green"});
-            $("#password").css({borderColor: "green"});
+            $("#repassword").css({ borderColor: "green" });
+            $("#password").css({ borderColor: "green" });
         }
     });
     $("#city").change(function (e) {
         let phon = $("#city").val();
         if (phon == "null") {
             $("#sendRegester").prop("disabled", true);
-            $("#sendRegester").css({opacity: "50%"});
+            $("#sendRegester").css({ opacity: "50%" });
         } else {
             $("#sendRegester").prop("disabled", false);
-            $("#sendRegester").css({opacity: "100%"});
+            $("#sendRegester").css({ opacity: "100%" });
         }
     });
     $("#phon").keyup(function (e) {
         let phon = $("#phon").val();
         if (phon.length < 11) {
             $("#sendRegester").prop("disabled", true);
-            $("#sendRegester").css({opacity: "50%"});
+            $("#sendRegester").css({ opacity: "50%" });
         } else {
             $("#sendRegester").prop("disabled", false);
-            $("#sendRegester").css({opacity: "100%"});
+            $("#sendRegester").css({ opacity: "100%" });
         }
     });
 
@@ -327,14 +343,16 @@ $(document).ready(function () {
             /^[a-zا-یA-Z\s]*$/.test(username)
         ) {
             $("#regester").prop("disabled", false);
-            $("#regester").css({opacity: "100%"});
+            $("#regester").css({ opacity: "100%" });
         } else {
             $("#regester").prop("disabled", true);
-            $("#regester").css({opacity: "50%"});
+            $("#regester").css({ opacity: "50%" });
         }
     });
 
     $(".regester-3").on("submit", function (e) {
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         e.preventDefault();
         var data = {
             username: $("#username").val(),
@@ -353,12 +371,20 @@ $(document).ready(function () {
                         location.href = "/panel";
                     }, 2500);
                 } else if (response == 0) {
+                    $(".mask-all").fadeOut();
+                    $(".loader").fadeOut();
                     alertEore("خطا رخ داده");
                 } else if (response == "invider") {
+                    $(".mask-all").fadeOut();
+                    $(".loader").fadeOut();
                     alertEore("این شماره معرف وجود ندارد");
                 } else if (response == "city") {
+                    $(".mask-all").fadeOut();
+                    $(".loader").fadeOut();
                     alertEore("شهر خود را انتخاب کنید");
                 } else if (response == "username") {
+                    $(".mask-all").fadeOut();
+                    $(".loader").fadeOut();
                     alertEore("نام اجباری است");
                 }
             },
@@ -370,12 +396,12 @@ $(document).ready(function () {
     // recet password
     $(".rect-passsword-button").click(function (e) {
         e.preventDefault();
-        $(".login-form").animate({top: -300});
+        $(".login-form").animate({ top: -300 });
         var w = innerWidth;
         var h = innerHeight;
         if (w >= 450) {
             $(".mask").fadeIn();
-            $(".recet-password-form").css({left: (w - 300) / 2});
+            $(".recet-password-form").css({ left: (w - 300) / 2 });
             $(".recet-password-form")
                 .fadeIn()
                 .animate({
@@ -395,7 +421,7 @@ $(document).ready(function () {
     });
     $(".mask ,.cancelRecetPassword").click(function (e) {
         e.preventDefault();
-        $(".recet-password-form").animate({top: -300});
+        $(".recet-password-form").animate({ top: -300 });
         $(".mask").fadeOut();
     });
     $("#phonRecetPassword").keyup(function (e) {
@@ -404,7 +430,7 @@ $(document).ready(function () {
             !/^[0-9]*$/.test($("#phonRecetPassword").val())
         ) {
             $("#sendRegester").prop("disabled", true);
-            $("#sendRegester").css({opacity: "50%"});
+            $("#sendRegester").css({ opacity: "50%" });
             $("#phonRecetPassword").css({
                 "border-color": "red",
                 "border-width": "2px",
@@ -412,7 +438,7 @@ $(document).ready(function () {
             });
         } else {
             $("#RecetPassword").prop("disabled", false);
-            $("#RecetPassword").css({opacity: "100%"});
+            $("#RecetPassword").css({ opacity: "100%" });
             $("#phonRecetPassword").css({
                 "border-color": "green",
                 "border-width": "2px",
@@ -421,11 +447,13 @@ $(document).ready(function () {
         }
     });
     $("#RecetPassword").click(function (e) {
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         e.preventDefault();
         $.ajax({
             type: "post",
             url: "/user/recetUserPass",
-            data: {phon: $("#phonRecetPassword").val()},
+            data: { phon: $("#phonRecetPassword").val() },
             success: function (response) {
                 if (response == 1) {
                     $(".recet-password-first").fadeOut();
@@ -435,15 +463,19 @@ $(document).ready(function () {
                 } else {
                     alertEore("شماره صحیح نیست");
                 }
+                $(".mask-all").fadeOut();
+                $(".loader").fadeOut();
             },
         });
     });
     $("#codeVerifyRecetPass").click(function (e) {
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         e.preventDefault();
         $.ajax({
             type: "post",
             url: "/user/recetUserPassAuth",
-            data: {code: $(".codeVerifyRecetPass").val()},
+            data: { code: $(".codeVerifyRecetPass").val() },
             success: function (response) {
                 if (response == 1) {
                     alertSucsses(" عملیات موفق ");
@@ -451,6 +483,8 @@ $(document).ready(function () {
                         window.location.href = "recetPassViwe";
                     }, 2500);
                 } else {
+                    $(".mask-all").fadeOut();
+                    $(".loader").fadeOut();
                     alertEore("کد اشتباه است");
                 }
             },
@@ -476,10 +510,10 @@ $(document).ready(function () {
                 .eq(0)
                 .hasClass("tab-door-request-activ")
         ) {
-            $(".container-request").css({display: "none"});
+            $(".container-request").css({ display: "none" });
             $(".container-door").fadeIn();
         } else {
-            $(".container-door").css({display: "none"});
+            $(".container-door").css({ display: "none" });
             $(".container-request").fadeIn();
         }
     });
@@ -498,6 +532,8 @@ $(document).ready(function () {
         },
     });
     $(".grops-select-door").change(function (e) {
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         e.preventDefault();
         $.ajax({
             type: "get",
@@ -511,6 +547,8 @@ $(document).ready(function () {
                <option value="${element.name}">${element.name}</option>
             `);
                 });
+                $(".mask-all").fadeOut();
+                $(".loader").fadeOut();
             },
         });
     });
@@ -522,19 +560,21 @@ $(document).ready(function () {
 
 var countDoor = 1;
 var scrollLimitDoor = 500;
-var city = 'تهران';
+var city = "تهران";
 if ($(".userCity").text() != 0) {
     city = $(".userCity").text();
-    $('.filter-city').val(city);
-}else{
-    $('.filter-city').val(city);
+    $(".filter-city").val(city);
+} else {
+    $(".filter-city").val(city);
 }
 var price = null;
 var search = null;
 var checkedCategoryDoor = [];
 
 function getDoors(countDoor, categoryDoor, city, price, search) {
-    console.log(city)
+    $(".mask-all").fadeIn();
+    $(".loader").fadeIn();
+    console.log(city);
     $.ajax({
         type: "get",
         url: `/getDoor/${countDoor}/${categoryDoor}/${city}/${price}/${search}`,
@@ -542,8 +582,11 @@ function getDoors(countDoor, categoryDoor, city, price, search) {
         contentType: false,
         success: function (response) {
             response.forEach(function (res) {
-                var see = res.see == 0 ? '' : "bg-warning-y";
-                var save = res.save == 0 ? `<i  onclick="setmark(event,${res.id})"  class="fa fa-regular fa-bookmark"></i></span` : `<i onclick="unsetmark(event,${res.id})" class="fa fa-bookmark"></i></span`;
+                var see = res.see == 0 ? "" : "bg-warning-y";
+                var save =
+                    res.save == 0
+                        ? `<i  onclick="setmark(event,${res.id})"  class="fa fa-regular fa-bookmark"></i></span`
+                        : `<i onclick="unsetmark(event,${res.id})" class="fa fa-bookmark"></i></span`;
                 img = res.img;
                 if (res.img == "null") {
                     img = "";
@@ -554,15 +597,29 @@ function getDoors(countDoor, categoryDoor, city, price, search) {
                 <li class="list-pepole-li-door ${see}" id=${res.id}>
                     <div class="door-item-cont">
                         <div class="topc-tetx">
-                            <div style='color:red;font-weight:bold'>${res.title}</div>
-                            <div class="discription">${res.topic}</div>${res.price == 0 ? "" : `<div>مژدگانی :<span style="color: red">${res.price} هزار تومان</span></div>`}
-                        </div>${res.img == "null" ? "" : `<img class="image-door-cl" src="${res.img}" alt="">`}
-                        <span class="pepole-date" style="color: black">${res.time}</span>
+                            <div style='color:red;font-weight:bold'>${
+                                res.title
+                            }</div>
+                            <div class="discription">${
+                                res.topic
+                            }</div>${res.price == 0 ? "" : `<div>مژدگانی :<span style="color: red">${res.price} هزار تومان</span></div>`}
+                        </div>${
+                            res.img == "null"
+                                ? ""
+                                : `<img class="image-door-cl" src="${res.img}" alt="">`
+                        }
+                        <span class="pepole-date" style="color: black">${
+                            res.time
+                        }</span>
                     </div>
-                    <button onclick="viweDoor(event,${res.id})" id="${res.id}" class="door-button">ورود</button><span style="color: black">${res.subgrops}</span><span class="fa fa-key"></span><span style="color: black">${save}
+                    <button onclick="viweDoor(event,${
+                        res.id
+                    })" id="${res.id}" class="door-button">ورود</button><span style="color: black">${res.subgrops}</span>${res.password_status==1?'<span class="fa fa-key"></span>':''}<span style="color: black">${save}</span>
                 </li>
              `);
             });
+            $(".mask-all").fadeOut();
+            $(".loader").fadeOut();
         },
     });
 }
@@ -570,11 +627,17 @@ function getDoors(countDoor, categoryDoor, city, price, search) {
 var viweDoor = (e, id) => {
     var doorHav = null;
     if ($(".user").attr("id") == 0) {
-        alertEore("لطفا شماره همراه خود را جهت ثبت نام وارد کنید(در این سایت همه چی رایگان است)");
-        regesterForm()
+        alertEore(
+            "لطفا شماره همراه خود را جهت ثبت نام وارد کنید(در این سایت همه چی رایگان است)"
+        );
+        regesterForm();
     } else if ($(".mines-score-door").attr("id") == 0) {
-        alertEore("شما امتیاز کافی را ندارید هر کسی از طرف شما ثبت نام کند و شماره معرف را شماره همراه شما بزند ، به ازای هر معرف 100 امتیاز می گیرید");
+        alertEore(
+            "شما امتیاز کافی را ندارید هر کسی از طرف شما ثبت نام کند و شماره معرف را شماره همراه شما بزند ، به ازای هر معرف 100 امتیاز می گیرید"
+        );
     } else {
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         $.ajax({
             type: "post",
             url: `/checkHavDoor/${id}`,
@@ -585,29 +648,36 @@ var viweDoor = (e, id) => {
                 } else {
                     $(".mask").fadeIn();
                     $(".mines-score-door").fadeIn();
-                    if (response=='p') {
+                    if (response == "p") {
                         $(".password-door-input").fadeIn();
                     }
+                    $(".mask-all").fadeOut();
+                    $(".loader").fadeOut();
                 }
+
             },
         });
         $(".doorView").attr("id", id);
     }
 };
 $(".doorView").click(function (e) {
+    $(".mask-all").fadeIn();
+    $(".loader").fadeIn();
     e.preventDefault();
     id = $(".doorView").attr("id");
-    var password = $('.password-door-input input').val()
+    var password = $(".password-door-input input").val();
     $.ajax({
         type: "get",
         url: `doorViwe/${id}/${password}`,
         success: function (response) {
-            if (response=='pass') {
-                alertEore('پسورد صحیح نیست')
-            }else{
-                window.location.href=`doorViwe/${id}/${password}`;
+            if (response == "pass") {
+                $(".mask-all").fadeOut();
+                $(".loader").fadeOut();
+                alertEore("پسورد صحیح نیست");
+            } else {
+                window.location.href = `doorViwe/${id}/${password}`;
             }
-        }
+        },
     });
 });
 
@@ -686,10 +756,9 @@ $(".category-be").click(function () {
         price,
         search
     );
-    if (innerWidth<768){
-        $('.category').fadeOut()
+    if (innerWidth < 768) {
+        $(".category").fadeOut();
     }
-
 });
 
 ////================category==============
@@ -753,18 +822,19 @@ $(".search").submit(function (e) {
 ////================search==============
 
 //====== reset ======
-$(".reset-all,.reset-all-cat").click(function (e) {''
-    $('.category input').prop('checked',false);
+$(".reset-all,.reset-all-cat").click(function (e) {
+    "";
+    $(".category input").prop("checked", false);
     countDoor = 1;
     scrollLimitDoor = 500;
     price = null;
     search = null;
-    city = 'تهران';
+    city = "تهران";
     if ($(".userCity").text() != 0) {
         city = $(".userCity").text();
-        $('.filter-city').val(city);
-    }else{
-        $('.filter-city').val(city);
+        $(".filter-city").val(city);
+    } else {
+        $(".filter-city").val(city);
     }
     checkedCategoryDoor = [];
     $(".only-price").prop("checked", false);
@@ -774,60 +844,72 @@ $(".reset-all,.reset-all-cat").click(function (e) {''
 });
 
 function setmark(e, id) {
-    if ($('.user').attr('id') != 0) {
-        var parentTime = id
-        var user = $('.user').attr('id')
+    if ($(".user").attr("id") != 0) {
+        var parentTime = id;
+        var user = $(".user").attr("id");
+        $(".mask-all").fadeIn();
+        $(".loader").fadeIn();
         $.ajax({
             type: "get",
             url: `/user/mark/${user}/${parentTime}`,
             success: function (response) {
                 if (response == 1) {
-                    $(e.target).removeClass('fa-regular');
-                    $(e.target).attr('onclick', `unsetmark(event,${id})`);
-                    alertSucsses('عملیات موفق',1500)
+                    $(e.target).removeClass("fa-regular");
+                    $(e.target).attr("onclick", `unsetmark(event,${id})`);
+                    alertSucsses("عملیات موفق", 1500);
                 }
-            }
+                $(".mask-all").fadeOut();
+                $(".loader").fadeOut();
+            },
         });
     } else {
-        alertEore('شما نام ثبت نکرده اید')
+        alertEore("شما نام ثبت نکرده اید");
     }
 }
 
 function unsetmark(e, id) {
-    var parentTime = id
-    var user = $('.user').attr('id')
+    $(".mask-all").fadeIn();
+    $(".loader").fadeIn();
+    var parentTime = id;
+    var user = $(".user").attr("id");
     $.ajax({
         type: "get",
         url: `/user/unmark/${user}/${parentTime}`,
         success: function (response) {
             if (response == 1) {
-                $(e.target).addClass('fa-regular');
-                $(e.target).attr('onclick', `setmark(event,${id})`);
-                alertSucsses('عملیات موفق',1500)
+                $(e.target).addClass("fa-regular");
+                $(e.target).attr("onclick", `setmark(event,${id})`);
+                alertSucsses("عملیات موفق", 1500);
             }
-        }
+            $(".mask-all").fadeOut();
+            $(".loader").fadeOut();
+        },
     });
 }
 
-$('.remove-save-door').submit(function (e) {
-    e.preventDefault()
-    var url = $(e.target).attr('action')
-    var parent = $(e.target).parents().filter('li')
+$(".remove-save-door").submit(function (e) {
+    $(".mask-all").fadeIn();
+    $(".loader").fadeIn();
+    e.preventDefault();
+    var url = $(e.target).attr("action");
+    var parent = $(e.target).parents().filter("li");
     $.ajax({
         type: "get",
         url: url,
         success: function (response) {
             if (response == 1) {
-                $(parent).remove()
-                alertSucsses('عملیات موفق',1500)
+                $(parent).remove();
+                alertSucsses("عملیات موفق", 1500);
             }
-        }
+            $(".mask-all").fadeOut();
+            $(".loader").fadeOut();
+        },
     });
-})
-$('.save-shoe-btn').click(function (e) {
-    $('.mask').fadeIn()
-    $('.save-cont').fadeIn()
-})
+});
+$(".save-shoe-btn").click(function (e) {
+    $(".mask").fadeIn();
+    $(".save-cont").fadeIn();
+});
 //====== reset ======
 // ============doors============
 // ============doors============

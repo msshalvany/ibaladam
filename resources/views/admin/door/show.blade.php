@@ -108,18 +108,19 @@
         var form = $(this); // دسترسی به فرم مربوطه
 
         $('.conf-cont').animate({
-            'top': '100%'
+            'margin-top': '-80px',
+            'top': '50%'
         });
 
         $('.conf-cont-n').click(function() {
             $('.conf-cont').animate({
-                'top': '50%'
+                'top': '-150%'
             });
         });
 
         $('.conf-cont-y').click(function() {
             $('.conf-cont').animate({
-                'top': '50%'
+                'top': '-150%'
             });
             console.log(form);
             form.unbind('submit').submit(); // ارسال فرم
@@ -130,18 +131,19 @@
         var form = $(this); // دسترسی به فرم مربوطه
 
         $('.conf-cont').animate({
-            'top': '100%'
+            'margin-top': '-80px',
+            'top': '50%'
         });
 
         $('.conf-cont-n').click(function() {
             $('.conf-cont').animate({
-                'top': '50%'
+                'top': '-150%'
             });
         });
 
         $('.conf-cont-y').click(function() {
             $('.conf-cont').animate({
-                'top': '50%'
+                'top': '-150%'
             });
             console.log(form);
             form.unbind('submit').submit(); // ارسال فرم

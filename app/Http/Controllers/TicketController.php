@@ -14,7 +14,6 @@ class TicketController extends Controller
     public function ticketStor(Request $request)
     {
         $user = User::find(session()->get('user'));
-
         $ticket = Ticket::where('user_id', $user->id)->first();
         $request->validate([
             'text' => 'required|max:500',
@@ -35,8 +34,7 @@ class TicketController extends Controller
             'ticket_id' => $ticket->id,
             'img' => $img,
         ]);
-        $sort = $ticket->sort;
-        $sort++;
+        $sort = Ticket::max('sort') + 1;
         $ticket->update([
             'sort'=>$sort
         ]);
@@ -65,12 +63,17 @@ class TicketController extends Controller
             'ticket_id' => $request->ticket_id,
             '$img' => $img,
         ]);
+        $ticket = Ticket::find($request->ticket_id);
+        $sort = Ticket::max('sort') + 1;
+        $ticket->update([
+            'sort'=>$sort
+        ]);
         return redirect()->back();
     }
 
     public function ticketList()
     {
-        return view('admin.ticket.list', ['ticket' => Ticket::orderBy('id', 'DESC')->get()]);
+        return view('admin.ticket.list', ['ticket' => Ticket::orderBy('sort', 'DESC')->get()]);
     }
 
     public function ticketShow($id)

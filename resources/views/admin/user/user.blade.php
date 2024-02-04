@@ -53,39 +53,39 @@
         @endif
         <table class="table table-striped table-advance table-hover">
             <thead>
-            <tr>
-                <td>نام</td>
-                <td>شماره همراه</td>
-                <td>شهر</td>
-                <td>وضعیت کاربر</td>
-            </tr>
+                <tr>
+                    <td>نام</td>
+                    <td>شماره همراه</td>
+                    <td>شهر</td>
+                    <td>وضعیت کاربر</td>
+                </tr>
             </thead>
             <tbody>
-            @foreach ($user as $item)
-                <tr>
-                    <td>{{ $item->username }}</td>
-                    <td>{{ $item->phon }}</td>
-                    <td>{{ $item->city }}</td>
-                    <td>
-                        @if ($item->block == 0)
-                            <form class="BlockUserForm" action="{{ route('BlockUser', ['user' => $item->id]) }}"
-                                  method="post">
-                                @csrf
-                                <button class="btn btn-warning"><i style="color: white"
-                                                                   class="fa fa-unlock"></i></button>
+                @foreach ($user as $item)
+                    <tr>
+                        <td>{{ $item->username }}</td>
+                        <td>{{ $item->phon }}</td>
+                        <td>{{ $item->city }}</td>
+                        <td>
+                            @if ($item->block == 0)
+                                <form class="BlockUserForm" action="{{ route('BlockUser', ['user' => $item->id]) }}"
+                                    method="post">
+                                    @csrf
+                                    <button class="btn btn-warning"><i style="color: white"
+                                            class="fa fa-unlock"></i></button>
 
-                            </form>
-                        @else
-                            <form class="unBlockUserForm" action="{{ route('unBlockUser', ['user' => $item->id]) }}"
-                                  method="post">
-                                @csrf
-                                <button class="btn btn-danger"><i style="color: white"
-                                                                  class="fa fa-cancel"></i></button>
-                            </form>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
+                                </form>
+                            @else
+                                <form class="unBlockUserForm" action="{{ route('unBlockUser', ['user' => $item->id]) }}"
+                                    method="post">
+                                    @csrf
+                                    <button class="btn btn-danger"><i style="color: white"
+                                            class="fa fa-cancel"></i></button>
+                                </form>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
         @if ($user->hasPages())
@@ -129,57 +129,59 @@
             </ul>
         @endif
     </section>
-    @section('js')
-        <script>
-            function loaded() {
-                $('.messags-door').fadeIn()
-                $('.loader').fadeOut()
-            }
+@section('js')
+    <script>
+        function loaded() {
+            $('.messags-door').fadeIn()
+            $('.loader').fadeOut()
+        }
 
-            $('.BlockUserForm').submit(function (e) {
-                e.preventDefault();
-                var form = $(this); // دسترسی به فرم مربوطه
+        $('.BlockUserForm').submit(function(e) {
+            e.preventDefault();
+            var form = $(this); // دسترسی به فرم مربوطه
 
+            $('.conf-cont').animate({
+                'margin-top': '-80px',
+                'top': '50%'
+            });
+
+            $('.conf-cont-n').click(function() {
                 $('.conf-cont').animate({
-                    'top': '100%'
-                });
-
-                $('.conf-cont-n').click(function () {
-                    $('.conf-cont').animate({
-                        'top': '50%'
-                    });
-                });
-
-                $('.conf-cont-y').click(function () {
-                    $('.conf-cont').animate({
-                        'top': '50%'
-                    });
-                    console.log(form);
-                    form.unbind('submit').submit(); // ارسال فرم
+                    'top': '-150%'
                 });
             });
-            $('.unBlockUserForm').submit(function (e) {
-                e.preventDefault();
-                var form = $(this); // دسترسی به فرم مربوطه
 
+            $('.conf-cont-y').click(function() {
                 $('.conf-cont').animate({
-                    'top': '100%'
+                    'top': '-150%'
                 });
+                console.log(form);
+                form.unbind('submit').submit(); // ارسال فرم
+            });
+        });
+        $('.unBlockUserForm').submit(function(e) {
+            e.preventDefault();
+            var form = $(this); // دسترسی به فرم مربوطه
 
-                $('.conf-cont-n').click(function () {
-                    $('.conf-cont').animate({
-                        'top': '50%'
-                    });
-                });
+            $('.conf-cont').animate({
+                'margin-top': '-80px',
+                'top': '50%'
+            });
 
-                $('.conf-cont-y').click(function () {
-                    $('.conf-cont').animate({
-                        'top': '50%'
-                    });
-                    console.log(form);
-                    form.unbind('submit').submit(); // ارسال فرم
+            $('.conf-cont-n').click(function() {
+                $('.conf-cont').animate({
+                    'top': '-150%'
                 });
             });
-        </script>
-    @endsection
+
+            $('.conf-cont-y').click(function() {
+                $('.conf-cont').animate({
+                    'top': '-150%'
+                });
+                console.log(form);
+                form.unbind('submit').submit(); // ارسال فرم
+            });
+        });
+    </script>
+@endsection
 @endsection
